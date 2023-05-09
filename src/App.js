@@ -4,6 +4,7 @@ import Layout from './_utils/Layout';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import SignIn from './pages/SignIn';
+import Error from './pages/Error';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             <Route path='/' element={<Home/>}/>
             <Route path='/user' element={<Profile/>}/>
             <Route path='/sign-in' element={<SignIn/>}/>
+            <Route path='/*' element={<Error/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
