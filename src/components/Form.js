@@ -1,55 +1,58 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Form = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [credentials, setCredentials] = useState({
+        email:'',
+        password:''
+    });
     const [remember, setRemember] = useState(false);
-    
-    const getUsername = (e) => {
-        setUsername(e.target.value);
+    const navigate = useNavigate();
+    const onChange = (e) => {
+        setCredentials({
+            ...credentials,
+            [e.target.name]: e.target.value
+        });
     }
-    const getPassword = (e) => {
-        setPassword(e.target.value);
-    }
-    const getRemember = (e) => {
+    const getRemember = () => {
         setRemember(!remember);
     }
     
-    const signIn = (event) => {
-        event.preventDefault();
-        ((username !== '' && password !== '') ? 
-         /* console.log('Username : ' + username + ' | Password : ' + password + ' | Remember me : ' + remember) */ 
-         axios.post('http://localhost:3001/api/v1/user/login', {
-            'email': username,
-            'password': password
-          })
+    const login = (e) => {
+        e.preventDefault();
+        ((credentials.email !== '' && credentials.password !== '') ? 
+
+         axios.post('http://localhost:3001/api/v1/user/login', credentials)
           .then(function (response) {
               console.log('status : '+response.data.status+', message : '+response.data.message);
               console.log(response.data.body);
+              localStorage.setItem('token', response.data.body.token);
+              navigate('/user');
           })
           .catch(function (error) {
             console.log(error.response.data);
           })
+
          : console.error('l\'utilisateur et/ou le mot de passe ne peuvent être vides !'))
         
     }
 
     return (
-        <form>
+        <form onSubmit={login}>
             <div className='input-wrapper'>
-                <label htmlFor='username'>Username</label>
-                <input onChange={getUsername} type='email' id='username'/>
+                <label htmlFor='email'>Username</label>
+                <input onChange={onChange} type='email' name='email' value={credentials.email}/>
             </div>
             <div className='input-wrapper'>
                 <label htmlFor='password'>Password</label>
-                <input onChange={getPassword} type='password' id='password'/>
+                <input onChange={onChange} type='password' name='password' value={credentials.password}/>
             </div>
             <div className='input-remember'>
                 <input onClick={getRemember} type='checkbox' id='remember-me'/>
                 <label htmlFor='remember-me'>Remember me</label>
             </div>
-            <button onClick={signIn} className='sign-in-button'>Sign In</button>
+            <button className='sign-in-button'>Sign In</button>
         </form>
     );
 };
