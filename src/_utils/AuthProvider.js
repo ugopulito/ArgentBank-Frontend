@@ -1,9 +1,9 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import { authServices } from './AuthServices';
 
 const AuthProvider = ({children}) => {
-    let logged = false; 
-    if(!logged){
+    if(!authServices.isLogged()){
         return <Navigate to='/sign-in'/>
     }
     return children

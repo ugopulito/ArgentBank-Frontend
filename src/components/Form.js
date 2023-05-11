@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { authServices } from '../_utils/AuthServices';
 
 const Form = () => {
     const [credentials, setCredentials] = useState({
@@ -25,9 +26,7 @@ const Form = () => {
 
          axios.post('http://localhost:3001/api/v1/user/login', credentials)
           .then(function (response) {
-              console.log('status : '+response.data.status+', message : '+response.data.message);
-              console.log(response.data.body);
-              localStorage.setItem('token', response.data.body.token);
+              authServices.setToken(response.data.body.token);
               navigate('/user');
           })
           .catch(function (error) {
