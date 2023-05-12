@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { authServices } from '../_utils/AuthServices';
+import { useDispatch, useSelector } from 'react-redux';
+import { savePassword } from '../redux';
 
 const Form = () => {
+    const userStore = useSelector(state => state.User);
+    const dispatch = useDispatch();
     const [credentials, setCredentials] = useState({
         email:'',
         password:''
@@ -15,9 +19,19 @@ const Form = () => {
             ...credentials,
             [e.target.name]: e.target.value
         });
+        dispatch({
+            type:'User/'+e.target.name,
+            payload: e.target.value
+        })
     }
+    const mail = 'email'
     const getRemember = () => {
         setRemember(!remember);
+        dispatch({
+            type:'User/'+mail,
+            payload: credentials.email
+        })
+        dispatch(savePassword(credentials.password));
     }
     
     const login = (e) => {
@@ -38,14 +52,14 @@ const Form = () => {
     }
 
     return (
-        <form onSubmit={login}>
+        <form onSubmit={login} autoComplete='off'>
             <div className='input-wrapper'>
                 <label htmlFor='email'>Username</label>
-                <input onChange={onChange} type='email' name='email' value={credentials.email}/>
+                <input onChange={onChange} type='email' name='email' value={userStore.email} required/>
             </div>
             <div className='input-wrapper'>
                 <label htmlFor='password'>Password</label>
-                <input onChange={onChange} type='password' name='password' value={credentials.password}/>
+                <input onChange={onChange} type='password' name='password' value={credentials.password} required/>
             </div>
             <div className='input-remember'>
                 <input onClick={getRemember} type='checkbox' id='remember-me'/>
