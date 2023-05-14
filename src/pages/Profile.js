@@ -7,7 +7,7 @@ const Profile = () => {
     const dispatch = useDispatch()
     const editName = () => {
         dispatch({
-            type: 'User/editUserName',
+            type: 'User/editUsername',
             payload: 'updated username'
         })
     }
