@@ -17,9 +17,19 @@ const authSlice = createSlice({
 const userSlice = createSlice({
     name: 'User',
     initialState: {
-        userName: 'default username'
+        email: "",
+        firstName: "",
+        lastName: "",
+        userName: "",
+        createdAt: "",
+        updatedAt: "",
+        id: ""
     }, 
     reducers: {
+        saveUserData: (state, action) => {
+            const {name, value} = action.payload;
+            state[name] = value;
+        },
         editUsername: (state, action) => {
             state.userName = action.payload
         }
@@ -27,6 +37,8 @@ const userSlice = createSlice({
 })
 
 export const { setCredentials } = authSlice.actions;
+
+export const { saveUserData } = userSlice.actions;
 
 
 export const userStore = configureStore({

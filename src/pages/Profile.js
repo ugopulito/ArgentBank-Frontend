@@ -3,20 +3,20 @@ import Transaction from '../components/Transaction';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Profile = () => {
-    const userStore = useSelector(state => state.User)
-    const dispatch = useDispatch()
+    const userStore = useSelector(state => state.User);
+    const dispatch = useDispatch();
     const editName = () => {
         dispatch({
             type: 'User/editUsername',
             payload: 'updated username'
         })
-    }
+    };
     return (
         <main className='profile main bg-dark'>
             <h1>
                 Welcome back
                 <br/>
-                {userStore.userName}
+                {userStore.firstName}
             </h1>
             <button onClick={editName} className='edit-button'>Edit Name</button>
             <Transaction 
