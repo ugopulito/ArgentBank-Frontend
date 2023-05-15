@@ -9,7 +9,15 @@ header{
     width: 200px;
 }
 
-.nav-item{
+.nav-items{
+    display: flex;
+}
+
+.nav-item, button.nav-item{
+    background: unset;
+    border: none;
+    padding: 0;
+    font-size: 1rem;
     font-weight: bold;
     margin-right: .5rem ;
     color: #2c3e50;
