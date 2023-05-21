@@ -1,13 +1,14 @@
 import React from 'react';
 import './_Components.css';
 import { authServices } from '../_utils/AuthServices';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const logoutUser = () => {
         authServices.logout();
-        console.log('logout')
+        navigate('/');
     }
     const displayLogout = () => {
         if(location.pathname === '/user'){
