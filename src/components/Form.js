@@ -21,7 +21,7 @@ const Form = () => {
         e.preventDefault();
         ((authStore.email !== '' && authStore.password !== '') ? 
         //Requête d'authentification
-         axios.post('http://localhost:3001/api/v1/user/login', authStore)
+         authServices.login(authStore)
           .then((response) => {
             authServices.setToken(response.data.body.token);
                 //Requête de récupération d'infos client

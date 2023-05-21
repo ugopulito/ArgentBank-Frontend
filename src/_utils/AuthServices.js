@@ -1,3 +1,9 @@
+import Axios from "./Axios"
+
+const login = (credentials) => {
+    return Axios.post('/user/login', credentials)
+}
+
 const setToken = (token) => {
     localStorage.setItem('token', token)
 }
@@ -12,5 +18,5 @@ const isLogged = () => {
 }
 
 export const authServices = {
-    setToken, logout, isLogged
+    login, setToken, logout, isLogged
 }
