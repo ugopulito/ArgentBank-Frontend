@@ -29,9 +29,6 @@ const userSlice = createSlice({
         saveUserData: (state, action) => {
             const {name, value} = action.payload;
             state[name] = value;
-        },
-        editUsername: (state, action) => {
-            state.userName = action.payload
         }
     }
 })
