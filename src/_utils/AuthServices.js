@@ -7,6 +7,10 @@ const login = (credentials) => {
 const setToken = (token) => {
     localStorage.setItem('token', token)
 }
+
+const getToken = () => {
+    return localStorage.getItem('token')
+}
     
 const logout = () => {
     localStorage.removeItem('token')    
@@ -18,5 +22,5 @@ const isLogged = () => {
 }
 
 export const authServices = {
-    login, setToken, logout, isLogged
+    login, setToken, getToken, logout, isLogged
 }
