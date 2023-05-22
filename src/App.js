@@ -2,7 +2,7 @@ import './App.css';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Layout from './_utils/Layout';
 import Home from './pages/Home';
-import Profile from './pages/Profile';
+import User from './pages/User';
 import SignIn from './pages/SignIn';
 import Error from './pages/Error';
 import AuthProvider from './_utils/AuthProvider';
@@ -17,7 +17,7 @@ function App() {
             <Route path='/sign-in' element={<SignIn/>}/>
               <Route path='/user' element={
                 <AuthProvider>
-                  <Profile/>
+                  <User/>
                 </AuthProvider>
               }/>
             <Route path='/*' element={<Error/>}/>

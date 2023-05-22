@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Transaction from '../components/Transaction';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Modale from '../components/Modale';
+import { userService } from '../_utils/UserService';
+import { saveUserData } from '../redux';
 
 const Profile = () => {
+    const dispatch = useDispatch();
     const userStore = useSelector(state => state.User);
     const initModale = () => {
         console.log('init Modale');
     }
+
+useEffect(() => {
+    //Requête de récupération d'infos client
+    userService.getUserData()
+        .then((user) => {
+            for(let i in user.data.body){
+                dispatch(saveUserData({name: i, value: user.data.body[i]}))
+            }
+        })
+        .catch((error) => {
+            console.log(error.response.data);
+        })
+    }, [dispatch])
     return (
         <main className='profile main bg-dark'>
             <h1>
