@@ -12,7 +12,7 @@ const authSlice = createSlice({
             const {name, value} = action.payload;
             state[name] = value;
         },
-        resetAuth: (state) => {
+        resetAuth: () => {
             return {
                 email: '',
                 password: ''
@@ -33,7 +33,7 @@ const userSlice = createSlice({
             const {name, value} = action.payload;
             state[name] = value;
         },
-        resetUser: (state) => {
+        resetUser: () => {
             return {
                 firstName: '',
                 lastName: '',
