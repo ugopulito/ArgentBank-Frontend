@@ -19,7 +19,7 @@ const Header = () => {
         if(authServices.isLogged()){
             return (
                 <>
-                <button className='nav-item'>
+                <button onClick={() => {navigate('/user')}} className='nav-item'>
                     <span className='nav-item-icon material-symbols-outlined'>account_circle</span>
                     <span className="nav-item-text">{userStore.userName}</span>
                 </button>
