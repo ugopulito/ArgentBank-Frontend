@@ -1,5 +1,6 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
 
+//slices
 const authSlice = createSlice({
     name: 'Auth',
     initialState: {
@@ -11,34 +12,43 @@ const authSlice = createSlice({
             const {name, value} = action.payload;
             state[name] = value;
         },
+        resetAuth: (state) => {
+            return {
+                email: '',
+                password: ''
+            }
+        }
     }
 })
 
 const userSlice = createSlice({
     name: 'User',
     initialState: {
-        email: "",
-        firstName: "",
-        lastName: "",
-        userName: "",
-        createdAt: "",
-        updatedAt: "",
-        id: ""
+        firstName: '',
+        lastName: '',
+        userName: ''
     }, 
     reducers: {
         saveUserData: (state, action) => {
             const {name, value} = action.payload;
             state[name] = value;
+        },
+        resetUser: (state) => {
+            return {
+                firstName: '',
+                lastName: '',
+                userName: ''
+            }
         }
     }
 })
 
-export const { setCredentials } = authSlice.actions;
+//redux actions
+export const { setCredentials, resetAuth } = authSlice.actions;
+export const { saveUserData, resetUser } = userSlice.actions;
 
-export const { saveUserData } = userSlice.actions;
 
-
-export const userStore = configureStore({
+export const store = configureStore({
     reducer: {
         Auth: authSlice.reducer,
         User: userSlice.reducer

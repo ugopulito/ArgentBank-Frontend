@@ -1,20 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Transaction from '../components/Transaction';
 import { useDispatch, useSelector } from 'react-redux';
-import Modale from '../components/Modale';
+import EditForm from '../components/EditForm';
 import { userService } from '../_utils/UserService';
 import { saveUserData } from '../redux';
 
-const Profile = () => {
+const User = () => {
     const dispatch = useDispatch();
     const userStore = useSelector(state => state.User);
-    const initModale = () => {
-        console.log('init Modale');
+    const toggleEditForm = () => {
+        setVisible(!visible)
     }
-
-useEffect(() => {
-    //Requête de récupération d'infos client
-    userService.getUserData()
+    const [visible, setVisible] = useState(false);
+    
+    useEffect(() => {
+        //Requête de récupération d'infos client
+        userService.getUserData()
         .then((user) => {
             for(let i in user.data.body){
                 dispatch(saveUserData({name: i, value: user.data.body[i]}))
@@ -31,8 +32,8 @@ useEffect(() => {
                 <br/>
                 {userStore.userName}
             </h1>
-            <button onClick={initModale} className='edit-button'>Edit Name</button>
-            <Modale/>
+            <button onClick={toggleEditForm} className='edit-button'>Edit Name</button>
+            <EditForm visible={visible} onhide={toggleEditForm}/>
             <Transaction 
                 title='Argent Bank Checking (x8349)' amount='$2,082.79' description='Available Balance'
             />
@@ -46,4 +47,4 @@ useEffect(() => {
     );
 };
 
-export default Profile;
+export default User;

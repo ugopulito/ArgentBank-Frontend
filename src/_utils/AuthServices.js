@@ -13,7 +13,7 @@ const getToken = () => {
 }
     
 const logout = () => {
-    localStorage.removeItem('token')    
+    localStorage.removeItem('token'); 
 }
 
 const isLogged = () => {

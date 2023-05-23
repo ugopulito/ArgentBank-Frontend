@@ -2,14 +2,18 @@ import React from 'react';
 import './_Components.css';
 import { authServices } from '../_utils/AuthServices';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetAuth, resetUser } from '../redux';
 
 const Header = () => {
+    const dispatch = useDispatch();
     const userStore = useSelector(state => state.User)
     const navigate = useNavigate();
     const logout = () => {
         authServices.logout();
-        navigate('/');
+        dispatch(resetUser());
+        dispatch(resetAuth());
+        navigate('/sign-in')
     }
     const displayLogout = () => {
         if(authServices.isLogged()){
