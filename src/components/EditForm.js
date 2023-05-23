@@ -2,18 +2,26 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveUserData } from '../redux';
+import { userService } from '../_utils/UserService';
 
 
 const EditForm = ({visible, onhide}) => {
     const dispatch = useDispatch();
     const userStore = useSelector(state => state.User);
-    const [newuserName, setnewuserName] = useState(userStore.userName);
+    const [newuserName, setnewuserName] = useState('');
     const editUsername = (e) => {
         e.preventDefault();
         if(newuserName !== ''){
-            dispatch(saveUserData({name: 'userName', value: newuserName}));
-            setnewuserName('');
-            onhide()
+            userService.updateUserName(newuserName)
+            .then(() => {
+                dispatch(saveUserData({name: 'userName', value: newuserName}))
+                setnewuserName('');
+                onhide()
+                }
+            )
+            .catch((error) => {
+                console.log(error);
+            })
         }
     };
     const cancel = (e) => {
@@ -25,7 +33,7 @@ const EditForm = ({visible, onhide}) => {
         return null
     }
     return (
-            <form className='edit_form'>
+            <form onSubmit={editUsername} className='edit_form' autoComplete='off'>
                 <p>Edit user info</p>
                 <div className='edit_form-items'>
                     <label className='edit_form-label' htmlFor='username'>User name:</label>
@@ -40,7 +48,7 @@ const EditForm = ({visible, onhide}) => {
                     <input className='edit_form-input' type='text' name='last name' value={userStore.lastName} disabled></input>
                 </div>
                 <div className='edit_form-items'>
-                    <button type='submit' className='edit-button' onClick={editUsername}>Save</button>
+                    <button type='submit' className='edit-button'>Save</button>
                     <button className='edit-button' onClick={cancel}>Cancel</button>
                 </div>
             </form>
