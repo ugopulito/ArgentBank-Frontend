@@ -10,4 +10,13 @@ Axios.interceptors.request.use(request => {
     return request
 })
 
+Axios.interceptors.response.use(response => {
+    return response
+}, error => {
+    if(error.response.status === 401){
+        authServices.logout()
+        window.location = '/sign-in' 
+    }
+})
+
 export default Axios
