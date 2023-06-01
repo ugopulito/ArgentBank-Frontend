@@ -10,12 +10,13 @@ Axios.interceptors.request.use(request => {
     return request
 })
 
-Axios.interceptors.response.use(response => {
-    return response
-}, error => {
+Axios.interceptors.response.use(response => response, error => {
     if(error.response.status === 401){
         authServices.logout()
         window.location = '/sign-in' 
+    }
+    else{
+        return Promise.reject(error)
     }
 })
 

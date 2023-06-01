@@ -22,8 +22,9 @@ const User = () => {
             }
         })
         .catch((error) => {
-            console.log(error.response.data);
+            console.log(error);
         })
+        /* return () => {} */
     }, [dispatch])
     return (
         <main className='profile main bg-dark'>
