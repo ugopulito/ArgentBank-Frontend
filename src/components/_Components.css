@@ -13,6 +13,10 @@ header{
     display: flex;
 }
 
+button{
+    cursor: pointer;
+}
+
 .nav-item, button.nav-item{
     background: unset;
     border: none;
