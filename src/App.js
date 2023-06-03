@@ -1,10 +1,9 @@
-import './App.css';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Layout from './_utils/Layout';
 import Home from './pages/Home';
 import User from './pages/User';
 import SignIn from './pages/SignIn';
-import Error from './pages/Error';
+import NotFound from './pages/NotFound';
 import AuthProvider from './_utils/AuthProvider';
 
 function App() {
@@ -20,7 +19,7 @@ function App() {
                   <User/>
                 </AuthProvider>
               }/>
-            <Route path='/*' element={<Error/>}/>
+            <Route path='/*' element={<NotFound/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

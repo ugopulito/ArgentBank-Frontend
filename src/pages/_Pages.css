@@ -142,6 +142,11 @@
   color: #fff;
 }
 
-.error-message{
+.not-found{
   margin: 4rem 0;
+}
+
+.not-found_code{
+  font-weight: bold;
+  font-size: 3rem;
 }
