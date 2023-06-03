@@ -9,6 +9,7 @@ const EditForm = ({visible, onhide}) => {
     const dispatch = useDispatch();
     const userStore = useSelector(state => state.User);
     const [newuserName, setnewuserName] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const editUsername = (e) => {
         e.preventDefault();
         if(newuserName !== ''){
@@ -20,7 +21,7 @@ const EditForm = ({visible, onhide}) => {
                 }
             )
             .catch((error) => {
-                console.log(error);
+                (error.response.data.status < 500 ? setErrorMessage('Wrong field. Please try again') : setErrorMessage('Network error. Please try again later'))
             })
         }
     };
@@ -33,25 +34,28 @@ const EditForm = ({visible, onhide}) => {
         return null
     }
     return (
-            <form onSubmit={editUsername} className='edit_form' autoComplete='off'>
-                <p>Edit user info</p>
-                <div className='edit_form-items'>
-                    <label className='edit_form-label' htmlFor='username'>User name:</label>
-                    <input className='edit_form-input' type='text' name='username' placeholder={userStore.userName} value={newuserName} onChange={(e) => {setnewuserName(e.target.value)}} required />
-                </div>
-                <div className='edit_form-items'>
-                    <label className='edit_form-label' htmlFor='firstname'>First name:</label>
-                    <input className='edit_form-input' type='text' name='firstname' value={userStore.firstName} disabled></input>
-                </div>
-                <div className='edit_form-items'>
-                    <label className='edit_form-label' htmlFor='last name'>Last name:</label>
-                    <input className='edit_form-input' type='text' name='last name' value={userStore.lastName} disabled></input>
-                </div>
-                <div className='edit_form-items'>
-                    <button type='submit' className='edit-button'>Save</button>
-                    <button className='edit-button' onClick={cancel}>Cancel</button>
-                </div>
-            </form>
+            <>
+                <form onSubmit={editUsername} className='edit_form' autoComplete='off'>
+                    <p>Edit user info</p>
+                    <div className='edit_form-items'>
+                        <label className='edit_form-label' htmlFor='username'>User name:</label>
+                        <input className='edit_form-input' type='text' name='username' placeholder={userStore.userName} value={newuserName} onChange={(e) => {setnewuserName(e.target.value)}} required />
+                    </div>
+                    <div className='edit_form-items'>
+                        <label className='edit_form-label' htmlFor='firstname'>First name:</label>
+                        <input className='edit_form-input' type='text' name='firstname' value={userStore.firstName} disabled></input>
+                    </div>
+                    <div className='edit_form-items'>
+                        <label className='edit_form-label' htmlFor='last name'>Last name:</label>
+                        <input className='edit_form-input' type='text' name='last name' value={userStore.lastName} disabled></input>
+                    </div>
+                    <div className='edit_form-items'>
+                        <button type='submit' className='edit-button'>Save</button>
+                        <button className='edit-button' onClick={cancel}>Cancel</button>
+                    </div>
+                </form>
+                {errorMessage && <p className='error'>{errorMessage}</p>}
+            </>
     );
 };
 
